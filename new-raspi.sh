@@ -48,7 +48,58 @@ pip install opencv-contrib-python==4.1.0.25
 
 #cameras:
 pip install "picamera[array]"
+
+#write the following two lines into rules.d:
+#https://answers.opencv.org/question/221305/how-to-get-pointgrey-camera-acquiring-image-data-in-python-on-raspberry-pi/
+
+sudo tee -a /etc/udev/rules.d/10-pointgrey.rules <<EOT
+# udev rules file for Point Grey Firefly-MV
+BUS=="usb", SYSFS{idVendor}=="1e10", SYSFS{idProduct}=="3300", GROUP="plugdev"
+EOT
+
+#--------------super-experimental-installation-guide-not-yet-working!!!!!!!!!!!!!!-----------------------
+
 #pyflycam installation!
+#at first, install FlyCapture SDK 
+
+#(for ARM) look into the help file/webpage
+#https://www.flir.com/support-center/iis/machine-vision/application-note/getting-started-with-flycapture-2-and-arm/
+
+# wget https://tinyurl.com/ty2kgax
+# mv ty2kgax flycap-sdk.tar.gz
+# tar xzvf flycap-sdk.tar.gz
+
+# # go into the lib folder, and 
+# cd flycapture-<version>_arm/lib
+
+# sudo cp libflycapture* /usr/lib
+# sudo cp pwd /usr/lib
+
+#sudo cp -r /home/pi/.virtualenvs/delta/bin/flycapture.2.13.3.31_armhf/lib /usr/lib
+
+
+# #cd flycapture-<version>_arm/
+# cd ..
+
+
+# sudo sh flycap2-conf
+
+# #install tools needed by PyCapture2
+# sudo pip install setuptools cython numpy
+
+# cd ~/.virtualenvs/delta/bin
+
+# #not sure if this link works permanetly
+# wget https://tinyurl.com/snyf68t
+# #because said homepage is very excentric, the files name will be now snyf68t
+# #therefore, rename it like this:
+# mv snyf68t flycap.tar.gz
+# #extract tar.gz files with
+# tar xzvf flycap.tar.gz
+# #now install as described in the extracted file README_Linux.txt
+# sudo python setup.py install
+
+#--------------end-of-super-experimental-installation-guide---------------------------------------
 
 #installs puredata, externals are missing..
 sudo apt-get -y install puredata --fix-missing
